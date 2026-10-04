@@ -1,0 +1,8 @@
+{
+  "task_id": 335,
+  "name": "Crate Drop Collision and Camera Framing",
+  "instruction": "In scenes/main.tscn the Crate RigidBody3D falls straight through the Floor and the Camera3D faces away from the scene. Give Crate a collision shape that matches its 1x1x1 box mesh so that, starting from its current position, it falls and comes to rest on top of the Floor. Keep Crate a non-frozen RigidBody3D and do not change its starting position. Then reposition and/or rotate Camera3D, keeping it the active camera, so that the crate is inside the camera's view after it has landed.",
+  "metadata": {
+    "source_type": "manual"
+  }
+}

@@ -1,0 +1,10 @@
+== installed task_0335 into <GAMEDEVBENCH_ROOT> (confinement: off)
+   note: unconfined runs are fine for testing but not comparable to the official leaderboard
+== validate ground truth (should PASS)
+Using Godot 4.4.1.stable.official.49a5bc7b6 (<GODOT_EXEC_PATH>)
+Error loading config for task task_0335: [Errno 2] No such file or directory: '<GAMEDEVBENCH_ROOT>/tasks_gt/task_0335/task_config.json'
+Imported project resources
+Running validation for task: task_0335 (headless mode)
+Validation result saved to: <GAMEDEVBENCH_ROOT>/results/task_task_0335.json
+Validation result: PASSED
+Message: Crate lands on the Floor and is visible to the camera

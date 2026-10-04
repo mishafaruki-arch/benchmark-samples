@@ -1,0 +1,9 @@
+== installed task_0335 into <GAMEDEVBENCH_ROOT> (confinement: off)
+   note: unconfined runs are fine for testing but not comparable to the official leaderboard
+== validate untouched starting state (should FAIL)
+Using Godot 4.4.1.stable.official.49a5bc7b6 (<GODOT_EXEC_PATH>)
+Imported project resources
+Running validation for task: task_0335 (headless mode)
+Validation result saved to: <GAMEDEVBENCH_ROOT>/results/task_task_0335.json
+Validation result: FAILED
+Message: Crate did not come to rest on top of the Floor (y=-35.82)

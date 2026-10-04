@@ -1,0 +1,51 @@
+# Key Checklist
+- [x] The task starting point runs with `uv run gamedevbench  validate $TASK_NAME` and successfully outputs a test failure
+  - Evidence: `uv run gamedevbench --confinement off validate task_0335` -> FAILED, "Crate did not come to rest on top of the Floor (y=-35.82)".
+- [x] The task ground truth runs with `uv run gamedevbench --gt validate $TASK_NAME` and successfully outputs SUCCESS
+  - Evidence: `uv run gamedevbench --confinement off --gt validate task_0335` -> PASSED, "Crate lands on the Floor and is visible to the camera". Passed 3/3 repeated headless runs.
+- [x] In every task, there exists a valid `main.tscn` and `test.tscn` similar to tasks_gt/task_0335
+  - Evidence: `tasks/task_0335/scenes/main.tscn`, `tasks/task_0335/scenes/test.tscn` (TestRunner Node with `scripts/test.gd`, `main.tscn` instanced as `Main`, same layout as tasks_gt/task_0110).
+- [ ] The task instruction matches the tutorial transcript (See example for documentation). The task instructions must be a subset of the tutorial transcript.
+  - N/A: custom manual task (`metadata.source_type = "manual"`). There is no tutorial transcript.
+- [ ] The task code is directly derived from the repository code. Please document where the derived code is.
+  - N/A: custom manual task. Scene built from Godot built-in BoxMesh/BoxShape3D resources; `assets/sprites/wood_crate.png` is a procedurally generated texture made for this task.
+- [x] The task instruction is clear, unambiguous, and self-contained. There are no references to the tutorial or other tasks
+  - Evidence: Instruction names every node involved (Crate, Floor, Camera3D), the required outcome (crate rests on top of the Floor, inside the camera view), the shape size (matches the 1x1x1 box mesh), and the constraints (non-frozen RigidBody3D, unchanged starting position, Camera3D stays the active camera).
+- [x] The tests in `test.gd` match the instructions. All tests are contained in the instruction. Similarly, all instructions are in the tests. Explain how to adjust the tests themselves to match the instructions.
+  - Test 1, Instruction "Crate RigidBody3D": `Main/Crate` exists and is a RigidBody3D.
+  - Test 2, Instruction "Keep Crate a non-frozen RigidBody3D": `crate.freeze == false`.
+  - Test 3, Instruction "do not change its starting position": crate starts at y >= 3.9 (scene places it at y = 4).
+  - Test 4, Instruction "the Floor": `Main/Floor` exists and is a StaticBody3D.
+  - Test 5, Instruction "Camera3D": `Main/Camera3D` exists and is a Camera3D.
+  - Test 6, Instruction "falls and comes to rest on top of the Floor" + "matches its 1x1x1 box mesh": after 180 physics frames of real simulation, crate centre y is within 0.45-0.55 (Floor top is y = 0, half crate height is 0.5) and linear velocity < 0.05.
+  - Test 7, Instruction "keeping it the active camera": `get_viewport().get_camera_3d() == camera`.
+  - Test 8, Instruction "the crate is inside the camera's view after it has landed": `camera.is_position_in_frustum(crate.global_position)`.
+  - Missing Coverage: None.
+- [x] Each test in `test.gd` is unambiguously defined in the instructions. With just the instruction and the task code (without looking at the tests), it is unambiguously possible to satisfy each test condition.
+  - Test 1, Assertions: Crate is a RigidBody3D under Main. Instruction coverage: "the Crate RigidBody3D".
+  - Test 2, Assertions: `freeze` is false. Instruction coverage: "Keep Crate a non-frozen RigidBody3D".
+  - Test 3, Assertions: starting y >= 3.9. Instruction coverage: "do not change its starting position".
+  - Test 4, Assertions: Floor is a StaticBody3D. Instruction coverage: "the Floor" (already present in the starting scene).
+  - Test 5, Assertions: Camera3D exists under Main. Instruction coverage: "Camera3D" (already present in the starting scene).
+  - Test 6, Assertions: resting y in [0.45, 0.55], speed < 0.05 after 180 physics frames. Instruction coverage: "collision shape that matches its 1x1x1 box mesh ... comes to rest on top of the Floor". A 1x1x1 shape resting on the Floor top (y = 0) puts the centre at y = 0.5.
+  - Test 7, Assertions: Camera3D is the viewport's active camera. Instruction coverage: "keeping it the active camera".
+  - Test 8, Assertions: crate centre inside camera frustum. Instruction coverage: "the crate is inside the camera's view after it has landed".
+  - **CRITICAL AMBIGUITY CHECKS** - For each test, explicitly verify:
+    - [x] String formatting (padding, delimiters, exact format) is specified in instruction - N/A, no strings checked
+    - [x] Exact string values/names are in instruction - node names Crate, Floor, Camera3D are stated
+    - [x] Number formats (zero-padding, decimal places) are specified - N/A
+    - [x] Any comparison operators (==, !=, >, <, contains, begins_with, ends_with) have clear criteria - resting height follows from the stated 1x1x1 size; tolerances are loose
+    - [x] Node names, paths, and types match instruction exactly
+    - [x] Property values (numbers, booleans, strings) have exact values in instruction - shape size 1x1x1 stated; camera placement is deliberately free
+  - Ambiguous Tests: None.
+- [x] If there are multiple solutions to the problem, the tests in `test.gd` are flexible to allow multiple solutions. Mark this as completed if there is only one solution to the problem and that solution is clearly decipherable from the instructions.
+  - Evidence: tests check outcomes (physics result and camera frustum), not node layout or exact transforms. Verified alternative correct solutions pass: camera moved to (5, 3, 5) looking at the crate -> PASSED; BoxShape3D with explicit `size = Vector3(1, 1, 1)` -> PASSED.
+  - Verified incorrect solutions fail: collision shape only (camera still facing away) -> FAILED "Crate is not inside the Camera3D view after landing"; camera only (no collision shape) -> FAILED "Crate did not come to rest on top of the Floor"; crate frozen -> FAILED "Crate must remain a dynamic (non-frozen) RigidBody3D"; crate moved onto the floor -> FAILED "Crate must keep its starting position above the Floor".
+- [x] The folder and file names are consistent with other tasks (tasks_gt/task_0110)
+  - Evidence: same layout as task_0110 (`project.godot`, `assets/sprites/`, `scenes/main.tscn`, `scenes/test.tscn`, `scripts/test.gd`, `scripts/test.gd.uid`, `task_config.json`, `task_validation.md`); tasks_gt omits `task_config.json` and `task_validation.md` like tasks_gt/task_0110.
+- [x] PROCEED. Check this box is the task is validated and all key checks pass successfully.
+  - Tutorial-derivation items are N/A for this custom task; all other checks pass.
+- [x] The task contains instructions or goals that are Node/inspector-focused.
+- [x] The task contains or requires multimodal reasoning or understanding to complete.
+  - Framing the crate in the camera view requires reasoning about 3D spatial layout; rendering the scene is the natural way to confirm it.
+- [ ] The task contains a multimodal input (such as a image) in the instruction.
