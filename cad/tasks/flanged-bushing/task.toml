@@ -1,0 +1,29 @@
+schema_version = "1.2"
+artifacts = ["/app/answer.py", "/app/answer.FCStd"]
+
+[task]
+name = "local/flanged-bushing"
+description = "A flanged bushing with a circular flange, a coaxial sleeve, and a plain through bore."
+authors = [{ name = "Mercor (local sample)" }]
+keywords = ["freecad", "cad", "parametric", "geometry", "python"]
+
+[metadata]
+difficulty_explanation = "Author a FreeCAD PartDesign script that generates the described part; graded by geometry and parameter-spec comparison against a held-back reference FCStd."
+category = "cad"
+gnucleus_dataset_id = "flanged-bushing"
+gnucleus_source_date = "20260903-0609"
+
+[verifier]
+timeout_sec = 600.0
+environment_mode = "separate"
+
+[agent]
+timeout_sec = 9000
+
+[environment]
+build_timeout_sec = 1800.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+allow_internet = true

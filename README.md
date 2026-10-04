@@ -7,5 +7,5 @@ the model's output.
 | Folder | Domain | Status |
 |---|---|---|
 | [`blender/`](blender/) | Blender tasks and evaluation scripts | Added |
+| [`cad/`](cad/) | FreeCAD tasks and graders | Added |
 | `gamedev/` | Godot tasks and tests | Coming soon |
-| `cad/` | FreeCAD tasks and graders | Coming soon |

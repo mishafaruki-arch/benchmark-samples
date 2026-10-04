@@ -13,3 +13,6 @@ __pycache__/
 
 # OS junk
 .DS_Store
+
+# Harbor job output from run_model.sh
+jobs/

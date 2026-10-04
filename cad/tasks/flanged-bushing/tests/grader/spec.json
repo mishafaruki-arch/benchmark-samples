@@ -1,0 +1,6 @@
+{
+  "name": "flanged bushing",
+  "description": "A flanged bushing consists of a circular flange, a cylindrical sleeve rising from one face of the flange, and a plain through bore running along the shared axis.\n\nThe flange is defined by flange_diameter and flange_thickness. The sleeve is coaxial with the flange and is defined by sleeve_diameter and sleeve_length, measured from the flange face to the end of the sleeve, so the overall length of the part is overall_length.\n\nThe through bore is defined by bore_diameter and passes through both the sleeve and the flange.",
+  "key_parameters": "- flange_diameter = 50mm\n- flange_thickness = 6mm\n- sleeve_diameter = 30mm\n- sleeve_length = 24mm\n- bore_diameter = 20mm\n- overall_length = 30mm",
+  "categories": []
+}
