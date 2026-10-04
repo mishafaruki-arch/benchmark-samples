@@ -1,0 +1,15 @@
+# Secrets
+.env
+
+# Eval working dirs
+work/
+**/glb/
+*.glb
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS junk
+.DS_Store

@@ -1,0 +1,34 @@
+{
+  "instance": "Teapot_seed0",
+  "timestamp": "2026-10-04T09:46:55+00:00",
+  "provider": "openai",
+  "model": "gpt-5.5",
+  "temperature": 1.0,
+  "thinking": "medium",
+  "task": "text_to_3d",
+  "prompt_type": "description",
+  "max_images": null,
+  "seed": null,
+  "status": "OK",
+  "latency_s": 102.56,
+  "code_chars": 8973,
+  "input_tokens": 995,
+  "output_tokens": 3464,
+  "thoughts_tokens": 6154,
+  "total_tokens": 10613,
+  "cache_read_tokens": 0,
+  "cache_creation_tokens": 0,
+  "cost_usd": 0.293515,
+  "parse_attempts": 1,
+  "render_attempts": 1,
+  "render_history": [
+    {
+      "attempt": 0,
+      "status": "OK",
+      "n_meshes": 1,
+      "error_brief": ""
+    }
+  ],
+  "final_render_status": "OK",
+  "error": null
+}

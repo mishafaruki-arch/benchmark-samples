@@ -1,0 +1,68 @@
+{
+  "Executability": {
+    "better": "higher",
+    "reference": 1.0,
+    "candidate": 1.0,
+    "noop_cube": 1.0
+  },
+  "Chamfer (yaw-min)": {
+    "better": "lower",
+    "reference": 0.0004694330407368565,
+    "candidate": 0.0035229728230606553,
+    "noop_cube": 0.1319021020258688
+  },
+  "DINOv2 image": {
+    "better": "higher",
+    "reference": 0.9999999552965164,
+    "candidate": 0.9399969130754471,
+    "noop_cube": 0.2344186156988144
+  },
+  "SigLIP-2 image": {
+    "better": "higher",
+    "reference": 1.0,
+    "candidate": 0.9340657740831375,
+    "noop_cube": 0.7559633553028107
+  },
+  "Text-image (SigLIP)": {
+    "better": "higher",
+    "reference": 0.19968772679567337,
+    "candidate": 0.21163256466388702,
+    "noop_cube": 0.056605271995067596
+  },
+  "Uni3D 3D-3D": {
+    "better": "higher",
+    "reference": 0.9961817264556885,
+    "candidate": 0.8425054550170898,
+    "noop_cube": -0.017834149301052094
+  },
+  "LLM judge": {
+    "judge": "gpt-5.4",
+    "instance": "Teapot_seed0",
+    "verdicts": [
+      {
+        "A": "candidate",
+        "B": "reference",
+        "winner": "candidate",
+        "reasoning": "System A better captures the prompt\u2019s squat, wider-than-tall teapot body and the long curved spout with a slightly flared tip rising from the lower belly. System B reads as a more upright, spherical teapot with a shorter, less distinctive spout, though its handle is cleaner than A\u2019s."
+      },
+      {
+        "A": "reference",
+        "B": "candidate",
+        "winner": "reference",
+        "reasoning": "System A is a more convincing classic ceramic teapot overall: it has the round squat body, low foot ring, shallow domed lid with knob, curved spout, and C-shaped handle in more plausible proportions. System B captures the squat body, but its spout and handle attachments look more awkward and less faithful to the classic teapot structure described."
+      },
+      {
+        "A": "candidate",
+        "B": "noop_cube",
+        "winner": "candidate",
+        "reasoning": "System A is clearly a recognizable teapot with the key parts: squat rounded body, low foot ring, shallow domed lid with knob, curved spout, and loop handle. System B does not depict a teapot at all in the renders, appearing instead as an uninformative block or clipping artifact."
+      },
+      {
+        "A": "noop_cube",
+        "B": "candidate",
+        "winner": "candidate",
+        "reasoning": "System B is clearly a recognizable classic teapot, with the squat round body, low foot ring, lid and knob, curved spout, and loop handle all present in plausible proportions. System A appears as an unrecognizable cropped geometric mass and does not match the prompt at all."
+      }
+    ]
+  }
+}

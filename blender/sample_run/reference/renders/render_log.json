@@ -1,0 +1,12 @@
+{
+  "script": "Teapot_seed0.py",
+  "samples": 64,
+  "resolution": 512,
+  "engine": "CYCLES",
+  "status": "OK",
+  "n_meshes": 4,
+  "extent": 3.5543869733810425,
+  "n_views_rendered": 4,
+  "latency_s": 9.55,
+  "error": null
+}
