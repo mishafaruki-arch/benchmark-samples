@@ -1,0 +1,125 @@
+{
+    "id": "3db3115c-4c2d-440e-b914-66ac90bd3c1f",
+    "task_name": "local/motor-mount",
+    "trial_name": "motor-mount__nWWwp6C",
+    "trial_uri": "file:///Users/mishafuraki/Desktop/cad-bench-runs/jobs/codex-gpt6astra-mount/motor-mount__nWWwp6C",
+    "task_id": {
+        "path": "my-tasks/motor-mount"
+    },
+    "source": null,
+    "task_checksum": "c269d0e8aff4d89ca9ab6064b4fdf0b8da58a05527aa0e02b1bbbd18f1e65cc4",
+    "config": {
+        "task": {
+            "path": "my-tasks/motor-mount",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "motor-mount__nWWwp6C",
+        "trials_dir": "jobs/codex-gpt6astra-mount",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "codex",
+            "import_path": null,
+            "model_name": "openai/gpt-6-astra",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "c9a9785d-e475-4103-83e6-53e717323d87",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "codex",
+        "version": "0.160.1",
+        "model_info": {
+            "name": "gpt-6-astra",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 166912,
+        "n_cache_tokens": 147043,
+        "n_output_tokens": 4377,
+        "cost_usd": 0.6141805,
+        "model_usage": {
+            "openai/gpt-6-astra": {
+                "n_input_tokens": 166912,
+                "n_cache_tokens": 147043,
+                "n_output_tokens": 4377,
+                "cost_usd": 0.6141805
+            }
+        },
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "separate",
+    "exception_info": null,
+    "started_at": "2026-10-06T03:02:37.100060Z",
+    "finished_at": "2026-10-06T03:05:34.446955Z",
+    "environment_setup": {
+        "started_at": "2026-10-06T03:02:37.151973Z",
+        "finished_at": "2026-10-06T03:02:41.027406Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-10-06T03:02:41.027581Z",
+        "finished_at": "2026-10-06T03:03:47.651989Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-10-06T03:03:47.652303Z",
+        "finished_at": "2026-10-06T03:05:26.366064Z"
+    },
+    "verifier": {
+        "started_at": "2026-10-06T03:05:29.833378Z",
+        "finished_at": "2026-10-06T03:05:34.446928Z"
+    },
+    "step_results": null
+}

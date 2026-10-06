@@ -1,0 +1,125 @@
+{
+    "id": "4c45d732-b201-4ac2-9f9e-28be21cf6479",
+    "task_name": "local/motor-mount",
+    "trial_name": "motor-mount__iW95WRh",
+    "trial_uri": "file:///Users/mishafuraki/Desktop/cad-bench-runs/jobs/codex-gpt56terra-mount/motor-mount__iW95WRh",
+    "task_id": {
+        "path": "my-tasks/motor-mount"
+    },
+    "source": null,
+    "task_checksum": "c269d0e8aff4d89ca9ab6064b4fdf0b8da58a05527aa0e02b1bbbd18f1e65cc4",
+    "config": {
+        "task": {
+            "path": "my-tasks/motor-mount",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "motor-mount__iW95WRh",
+        "trials_dir": "jobs/codex-gpt56terra-mount",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "codex",
+            "import_path": null,
+            "model_name": "openai/gpt-5.6-terra",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "aff1cfd7-d2d2-4b3f-b230-450096973856",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "codex",
+        "version": "0.160.1",
+        "model_info": {
+            "name": "gpt-5.6-terra",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 280908,
+        "n_cache_tokens": 252582,
+        "n_output_tokens": 8678,
+        "cost_usd": 0.22544640000000002,
+        "model_usage": {
+            "openai/gpt-5.6-terra": {
+                "n_input_tokens": 280908,
+                "n_cache_tokens": 252582,
+                "n_output_tokens": 8678,
+                "cost_usd": 0.22544640000000002
+            }
+        },
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "separate",
+    "exception_info": null,
+    "started_at": "2026-10-06T02:16:32.116559Z",
+    "finished_at": "2026-10-06T02:19:45.327375Z",
+    "environment_setup": {
+        "started_at": "2026-10-06T02:16:32.117591Z",
+        "finished_at": "2026-10-06T02:16:33.892319Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-10-06T02:16:33.892381Z",
+        "finished_at": "2026-10-06T02:18:10.615653Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-10-06T02:18:10.615984Z",
+        "finished_at": "2026-10-06T02:19:38.559199Z"
+    },
+    "verifier": {
+        "started_at": "2026-10-06T02:19:40.768824Z",
+        "finished_at": "2026-10-06T02:19:45.327336Z"
+    },
+    "step_results": null
+}

@@ -15,6 +15,7 @@ cad/
 ├── tasks/
 │   ├── flanged-bushing/         easy: three axis-aligned features
 │   ├── webbed-gear/             involute teeth, web, holes, keyway
+│   ├── motor-mount/             real laser-cutter part: C-plate, ears, blind holes
 │   ├── splined-shaft/           stepped revolve, spline, groove, keyway, cross hole
 │   ├── flanged-elbow/           flanges on perpendicular planes, 90° bend, bolt holes
 │   └── impeller/                coned hub, 7 curved blades, D-bore
@@ -30,6 +31,7 @@ cad/
 |---|---|---|---|---|---|
 | [`flanged-bushing`](#task-flanged-bushing) | Easy | 1.000 | 0.000 | — | — |
 | [`webbed-gear`](#task-webbed-gear) | Moderate–hard | 1.000 | 0.000 | **0.885** | **0.000** |
+| [`motor-mount`](#task-motor-mount) | Moderate | 1.000 | 0.000 | **1.000** | **0.333** |
 | [`splined-shaft`](#task-splined-shaft) | Hard | 1.000 | 0.000 | — | **0.196** |
 | [`flanged-elbow`](#task-flanged-elbow) | Hard | 1.000 | 0.000 | — | **0.585** |
 | [`impeller`](#task-impeller) | Hard | 1.000 | 0.000 | — | **0.311** |
@@ -227,6 +229,47 @@ once) before the model ran, so it isn't counted.
      pitch-circle thickness). Volume is within 0.1%, but area is 18.5% high
      and the face count is 85% off, so this would fail the verifier's
      structural gate anyway.
+
+## Task: `motor-mount`
+
+The X-axis motor mount from a flat-sheet laser cutter assembly (exported from
+SolidWorks), rebuilt as a PartDesign model. A 25 mm thick C-shaped plate in
+the XY plane:
+
+- **Profile:** 62 × 110 mm, with a Ø50.25 motor bore open toward +X between
+  two jaws (a 40 mm opening), 45° jaw edges, R3.5 corner rounds and R0.5 ear
+  corners.
+- **Ears:** two ears, each with two Ø5.5 holes drilled along X.
+- **Blind holes:** four positions on a Ø70 circle at 45°. From the front face,
+  Ø4.2 holes 11.138 mm deep (cylindrical part) with 118° drill points; from
+  the back face, Ø3.3 holes 9.109 mm deep with 118° drill points. They don't
+  meet.
+
+12 key parameters. The original part's 0.25 mm edge-break chamfers are left
+out (the spec says all other edges are sharp).
+
+### Build scripts (`build/motor-mount/`)
+
+| File | What it does |
+|---|---|
+| `original.step` | The original part, extracted from the laser cutter's STEP assembly |
+| `make_reference.py` | Builds the reference: the outline is sliced from `original.step` at mid-thickness (so it matches exactly) and padded, then the blind holes (PartDesign Hole, 118° drill points) and the ear-hole pocket are added. Saves to `$OUT`. |
+| `compare_original.py` | Checks the reference against `original.step`: volume within 0.077% (the omitted chamfers) and 19,996/20,000 random points agree; the four that differ sit on the chamfers |
+
+### Runs (`runs/motor-mount/`)
+
+| Run | Reward | Geometry | Spec | Notes |
+|---|---|---|---|---|
+| `oracle/` | 1.000 | 1.000 | 12/12 | |
+| `nop/` | 0.000 | — | — | no answer |
+| Astra `4uQe9qe` | 1.000 | 1.000 | 12/12 | |
+| Astra `fqsrqmc` | 1.000 | 1.000 | 12/12 | |
+| Astra `nWWwp6C` | 1.000 | 1.000 | 12/12 | |
+| **Astra average** | **1.000** | | | |
+| Terra `RDTjNoh` | 0.000 | 0.000 | 12/12 | baked geometry (`makeFillet` on raw shapes, wrapped in feature holders) |
+| Terra `iW95WRh` | 1.000 | 1.000 | 12/12 | |
+| Terra `TveqNtq` | 0.000 | 0.000 | 12/12 | baked geometry |
+| **Terra average** | **0.333** | | | |
 
 ## Advanced tasks: shared verification
 
