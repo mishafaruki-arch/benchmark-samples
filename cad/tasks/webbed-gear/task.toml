@@ -1,0 +1,28 @@
+schema_version = "1.2"
+artifacts = ["/app/answer.py", "/app/answer.FCStd"]
+
+[task]
+name = "local/webbed-gear"
+description = "A webbed involute spur gear with lightening holes and a keyed hub bore."
+authors = [{ name = "Mercor (local sample)" }]
+keywords = ["freecad", "cad", "parametric", "geometry", "python"]
+
+[metadata]
+difficulty_explanation = "Author a FreeCAD PartDesign script that generates the described part; graded by geometry and parameter-spec comparison against a held-back reference FCStd."
+category = "cad"
+gnucleus_dataset_id = "webbed-gear"
+
+[verifier]
+timeout_sec = 600.0
+environment_mode = "separate"
+
+[agent]
+timeout_sec = 9000
+
+[environment]
+build_timeout_sec = 1800.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
+allow_internet = true
