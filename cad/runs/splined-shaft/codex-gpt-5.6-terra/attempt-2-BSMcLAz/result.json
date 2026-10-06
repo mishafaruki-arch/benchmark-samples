@@ -1,0 +1,125 @@
+{
+    "id": "7a28ce61-7d19-4f6d-9dbf-dfe377ab533f",
+    "task_name": "local/splined-shaft",
+    "trial_name": "splined-shaft__BSMcLAz",
+    "trial_uri": "file:///Users/mishafuraki/Desktop/cad-bench-runs/jobs/codex-gpt56terra-splined-shaft/splined-shaft__BSMcLAz",
+    "task_id": {
+        "path": "my-tasks/splined-shaft"
+    },
+    "source": null,
+    "task_checksum": "c03ab3c47015707f1d5969a23a4416c4cd5146b8563e8ee03067101b7a168aa9",
+    "config": {
+        "task": {
+            "path": "my-tasks/splined-shaft",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "splined-shaft__BSMcLAz",
+        "trials_dir": "jobs/codex-gpt56terra-splined-shaft",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "codex",
+            "import_path": null,
+            "model_name": "openai/gpt-5.6-terra",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "75af9702-6fb2-4238-9ec1-28ba291115d0",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "codex",
+        "version": "0.160.1",
+        "model_info": {
+            "name": "gpt-5.6-terra",
+            "provider": "openai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 128950,
+        "n_cache_tokens": 109655,
+        "n_output_tokens": 5843,
+        "cost_usd": 0.1402725,
+        "model_usage": {
+            "openai/gpt-5.6-terra": {
+                "n_input_tokens": 128950,
+                "n_cache_tokens": 109655,
+                "n_output_tokens": 5843,
+                "cost_usd": 0.1402725
+            }
+        },
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "separate",
+    "exception_info": null,
+    "started_at": "2026-10-06T05:05:29.884653Z",
+    "finished_at": "2026-10-06T05:07:29.962680Z",
+    "environment_setup": {
+        "started_at": "2026-10-06T05:05:29.885729Z",
+        "finished_at": "2026-10-06T05:05:31.542555Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-10-06T05:05:31.542662Z",
+        "finished_at": "2026-10-06T05:06:24.100470Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-10-06T05:06:24.100662Z",
+        "finished_at": "2026-10-06T05:07:23.321599Z"
+    },
+    "verifier": {
+        "started_at": "2026-10-06T05:07:25.540627Z",
+        "finished_at": "2026-10-06T05:07:29.962654Z"
+    },
+    "step_results": null
+}

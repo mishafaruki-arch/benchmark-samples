@@ -14,20 +14,30 @@ cad/
 ├── run_model.sh                 run any agent + model on a task and score it
 ├── tasks/
 │   ├── flanged-bushing/         easy: three axis-aligned features
-│   └── webbed-gear/             harder: involute teeth, web, holes, keyway
+│   ├── webbed-gear/             involute teeth, web, holes, keyway
+│   ├── splined-shaft/           stepped revolve, spline, groove, keyway, cross hole
+│   ├── flanged-elbow/           flanges on perpendicular planes, 90° bend, bolt holes
+│   └── impeller/                coned hub, 7 curved blades, D-bore
 ├── build/
 │   ├── overlap.py               independent overlap check (shared)
-│   ├── flanged-bushing/         reference builder
-│   └── webbed-gear/             reference builder + tooth-profile comparison
+│   └── <task>/                  reference builder + independent checks per task
 └── runs/
-    ├── flanged-bushing/         oracle and no-op runs that validate the verifier
-    └── webbed-gear/             oracle, no-op, and model runs (GPT-6 Astra, GPT-5.6 Terra)
+    └── <task>/                  oracle and no-op runs that validate the verifier,
+                                 plus model runs where available
 ```
 
-| Task | Difficulty | Oracle | No-op | Model results |
-|---|---|---|---|---|
-| [`flanged-bushing`](#task-flanged-bushing) | Easy | 1.000 | 0.000 | — |
-| [`webbed-gear`](#task-webbed-gear) | Moderate–hard | 1.000 | 0.000 | GPT-6 Astra **0.88** avg, GPT-5.6 Terra **0.00** avg (3 attempts each) |
+| Task | Difficulty | Oracle | No-op | GPT-6 Astra (avg of 3) | GPT-5.6 Terra (avg of 3) |
+|---|---|---|---|---|---|
+| [`flanged-bushing`](#task-flanged-bushing) | Easy | 1.000 | 0.000 | — | — |
+| [`webbed-gear`](#task-webbed-gear) | Moderate–hard | 1.000 | 0.000 | **0.885** | **0.000** |
+| [`splined-shaft`](#task-splined-shaft) | Hard | 1.000 | 0.000 | — | **0.196** |
+| [`flanged-elbow`](#task-flanged-elbow) | Hard | 1.000 | 0.000 | — | **0.585** |
+| [`impeller`](#task-impeller) | Hard | 1.000 | 0.000 | — | **0.311** |
+
+Model runs use the Codex agent, three attempts per model on the identical
+task, run one after another. Each attempt folder under `runs/<task>/` has the
+agent's `answer.py` and `answer.FCStd`, `verifier/` and `result.json` (agent
+logs and trajectories aren't included).
 
 ## Quick start
 
@@ -67,12 +77,12 @@ Full results land in `jobs/<agent>-<model>-<task>-<time>/` (git-ignored):
 the agent's `answer.py` and `answer.FCStd` under `artifacts/app/`, verifier
 output under `verifier/`, and the agent's logs under `agent/`.
 
-`run_model.sh` was tested end to end on both tasks with the oracle, and on
+`run_model.sh` was tested end to end on every task with the oracle, and on
 the bushing with the no-op and a real Codex agent.
 
 ## Task files
 
-Both tasks have the same layout. Only `instruction.md`, `task.toml`,
+All tasks have the same layout. Only `instruction.md`, `task.toml`,
 `tests/grader/spec.json` and the two copies of `reference.FCStd` differ.
 
 | File | Role | Seen by the agent? |
@@ -85,7 +95,7 @@ Both tasks have the same layout. Only `instruction.md`, `task.toml`,
 | `tests/run_scorer.py` | Calls `Validator().validate()` and writes `reward.txt`, `reward.json`, and a `reward_details.json` sidecar | No |
 | `tests/grader/reference.FCStd` | The answer key | No |
 | `tests/grader/spec.json` | The description + key parameters, for the spec-consistency check | No |
-| `tests/grader/param_check.py` | Per-task parameter logic (a stub in both tasks: the generic checks are enough) | No |
+| `tests/grader/param_check.py` | Per-task parameter logic (a stub in every task: the generic checks are enough) | No |
 | `solution/solve.sh` + `reference.FCStd` | Oracle: copies the reference to the answer path, to test the verifier alone | No |
 | `*/LICENSES/` | LGPL-2.1, Apache-2.0, and third-party notices for the FreeCAD runtime in the images | — |
 
@@ -218,6 +228,110 @@ once) before the model ran, so it isn't counted.
      and the face count is 85% off, so this would fail the verifier's
      structural gate anyway.
 
+## Advanced tasks: shared verification
+
+The next three tasks combine feature types the first two don't use
+(revolve, groove, sweeps about an offset axis, features on side planes, curved
+blade profiles). Each reference was checked three ways before use:
+
+1. **Per-feature volumes** against hand calculations (printed as `STEP` lines
+   by `make_reference.py`).
+2. **`implicit_check.py`**: a plain-math description of the part, written
+   without FreeCAD geometry, classifies 20,000 random points as inside or
+   outside, compared with FreeCAD's solid. All three agree on 20,000/20,000.
+3. **Every key parameter is measurable**: the oracle scores 1.0 with all
+   parameters consistent. Two dimensions the validator can't measure on a
+   correct part (the elbow's bend radius, the impeller's blade thickness) are
+   given in the description instead, where the geometry score still checks
+   them.
+
+```bash
+docker run --rm -v "$PWD/build:/build:ro" -v "$PWD/out:/out" \
+    cad-bench-<task>-env freecadcmd /build/<task>/make_reference.py
+docker run --rm -v "$PWD/build:/build:ro" -v "$PWD/tasks/<task>/solution:/ref:ro" \
+    cad-bench-<task>-env freecadcmd /build/<task>/implicit_check.py
+```
+
+In GPT-5.6 Terra's runs on these tasks, "baked geometry" means the validator
+rejected the model before scoring because it built the shape with
+Part-workbench operations and pasted the result into generic
+`PartDesign::Feature` holders, instead of using editable PartDesign features.
+
+## Task: `splined-shaft`
+
+A 175 mm stepped drive shaft along Z:
+
+- **Body:** revolved steps Ø25 → Ø30 → Ø40 collar → Ø30 → Ø20, with 1 mm × 45°
+  chamfers on both end faces.
+- **Spline:** 6 straight-sided teeth, 6 mm wide, on the Ø25 end, cut down to
+  Ø21 for 30 mm (one tooth on +X).
+- **Retaining-ring groove:** 2 mm wide at z = 82–84, down to Ø28.
+- **Keyway:** on the Ø20 end, +X side, 6 mm wide with R3 ends, z = 145–170,
+  floor 3.5 mm deep.
+- **Cross hole:** Ø5 along Y at z = 120.
+
+11 key parameters. Reference volume 103,369.10 mm³; per-feature volumes match
+hand calculations (revolve 106,745.56, groove −182.21, spline −2,129.87,
+keyway −477.42, cross hole −586.96).
+
+| Run | Reward | Geometry | Spec | Notes |
+|---|---|---|---|---|
+| `oracle/` | 1.000 | 1.000 | 11/11 | |
+| `nop/` | 0.000 | — | — | no answer |
+| Terra attempt 1 `8HqKHRN` | 0.588 | 0.493 | 8/11 | Cut the spline spaces with rectangular boxes (volume −10%; the validator found 2 of 6 splines and a Ø20 root instead of Ø21) and built the groove from 24 flat cuts instead of a round groove |
+| Terra attempt 2 `BSMcLAz` | 0.000 | 0.000 | 11/11 | baked geometry |
+| Terra attempt 3 `SaNG2AX` | 0.000 | 0.000 | 11/11 | baked geometry |
+| **Terra average** | **0.196** | | | |
+
+## Task: `flanged-elbow`
+
+A 90° flanged pipe elbow, Ø40 × Ø32 pipe:
+
+- **Inlet:** 80 × 80 × 12 square flange (R8 corners) on the XY plane, then a
+  straight pipe along Z to z = 40.
+- **Bend:** 90° about a Y-parallel axis through (60, 0, 40), centerline radius
+  60, turning the pipe from +Z to +X.
+- **Outlet:** straight pipe along X from x = 60 to 88, then the same flange
+  from x = 88 to 100, centered at z = 100.
+- **Bolt holes:** 4 × Ø9 per flange on a 60 mm square.
+
+9 key parameters. Reference volume 194,842.78 mm³; every feature matches its
+hand calculation to 0.001 mm³ (flange 66,489.77, straight pipe 12,666.90,
+bend 42,636.69, 4 bolt holes −3,053.63).
+
+| Run | Reward | Geometry | Spec | Notes |
+|---|---|---|---|---|
+| `oracle/` | 1.000 | 1.000 | 9/9 | |
+| `nop/` | 0.000 | — | — | no answer |
+| Terra attempt 1 `3kL6S75` | 0.756 | 0.608 | 9/9 | Fillet edge selection: rounded the inlet flange's top edges instead of its corners (71.7 mm wide at the top instead of 80) and left the outlet flange's corners square. Volume −1.7% |
+| Terra attempt 2 `PVPWVpR` | 1.000 | 1.000 | 9/9 | |
+| Terra attempt 3 `YtTF4Qk` | 0.000 | 0.000 | 9/9 | baked geometry |
+| **Terra average** | **0.585** | | | |
+
+## Task: `impeller`
+
+A radial impeller along Z:
+
+- **Back plate:** Ø120 × 4.
+- **Hub:** Ø30 to z = 28, then a cone to Ø16 at z = 36.
+- **Blades:** 7 backward-curved blades, 20 high, 3 mm thick. Each is the part
+  of the strip between arcs of radius 48.5 and 51.5 centered at (0, 50)
+  (rotated per blade) with X ≥ 0, outside the hub and inside Ø116.
+- **Bore:** Ø10 D-bore with a flat at x = 4.
+
+8 key parameters. Reference volume 82,619.40 mm³; plate, hub and bore match
+hand calculations exactly, and the blade area matches an independent grid
+integration to 0.008% (140.50 vs 140.51 mm² per blade).
+
+| Run | Reward | Geometry | Spec | Notes |
+|---|---|---|---|---|
+| `oracle/` | 1.000 | 1.000 | 8/8 | |
+| `nop/` | 0.000 | — | — | no answer |
+| Terra attempt 1 `iivgRzd` | 0.000 | 0.000 | 8/8 | baked geometry |
+| Terra attempt 2 `mSoBMeb` | 0.933 | 0.999 | 7/8 | Shape essentially exact (volume 0.012% off). The validator couldn't find `blade_tip_diameter` in its model and matched the Ø120 plate instead: a limit of the parameter search more than a modeling error |
+| Terra attempt 3 `vwGZvh9` | 0.000 | 0.000 | 8/8 | baked geometry |
+| **Terra average** | **0.311** | | | |
+
 ## How it's graded
 
 The reward is a score in [0, 1]: the **harmonic mean** of two axes, so a
@@ -250,6 +364,11 @@ The scorer itself crashing also gives 0.
 - **The gear spec gives step-by-step tooth construction,** which makes it
   easier than an unguided gear task. Three attempts per model show a trend,
   not a precise average.
+- **No GPT-6 Astra runs yet on `splined-shaft`, `flanged-elbow` or
+  `impeller`**, so there's no strong-model baseline for those three.
+- **Most of Terra's zeros come from the PartDesign gate,** not from wrong
+  shapes: in 5 of its 9 attempts on the advanced tasks the spec score was
+  perfect. The partial-credit attempts are the ones with real geometry errors.
 - `LICENSES/NOTICES.freecad-1.1-runtime.md` names validator version 0.1.3,
   but `tests/Dockerfile` installs 0.4.0.
 - `task.toml` sets `allow_internet = true` for the agent environment.
