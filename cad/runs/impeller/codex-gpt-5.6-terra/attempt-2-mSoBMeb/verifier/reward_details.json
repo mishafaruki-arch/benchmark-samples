@@ -1,0 +1,8 @@
+{
+  "score": 0.9328871695435663,
+  "geometry_similarity": 0.998976203683712,
+  "cad_spec_consistency": 0.875,
+  "combined": 0.9328871695435663,
+  "geometry_similarity_reason": "reference.FCStd vs answer.FCStd: overall=0.999 [solid_count=1 (matched)] (surface_types=0.990, volume=1.000, surface_area=1.000, bbox=1.000); volume_diff=0.012% (Matched); surface_area_diff=0.000% (Matched); bbox_diff=0.000% (Matched)",
+  "cad_spec_consistency_reason": "spec.json vs answer.FCStd: spec_score=0.875 (7/8 consistent, 1 inconsistent, 0 not_found; failure_budget=disabled)"
+}

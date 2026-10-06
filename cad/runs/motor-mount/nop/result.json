@@ -1,0 +1,115 @@
+{
+    "id": "472c9a89-3413-4dd5-8afe-1f18b786c868",
+    "task_name": "local/motor-mount",
+    "trial_name": "motor-mount__GZ7rXtq",
+    "trial_uri": "file:///Users/mishafuraki/Desktop/cad-bench-runs/jobs/nop-mount/motor-mount__GZ7rXtq",
+    "task_id": {
+        "path": "my-tasks/motor-mount"
+    },
+    "source": null,
+    "task_checksum": "c269d0e8aff4d89ca9ab6064b4fdf0b8da58a05527aa0e02b1bbbd18f1e65cc4",
+    "config": {
+        "task": {
+            "path": "my-tasks/motor-mount",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "motor-mount__GZ7rXtq",
+        "trials_dir": "jobs/nop-mount",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "nop",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "user_agent": null,
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "extra_instructions": [],
+        "job_id": "d8967e0e-5a4a-41e2-a6fe-1a286a246c7e",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "nop",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "model_usage": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "separate",
+    "exception_info": null,
+    "started_at": "2026-10-06T02:13:45.747026Z",
+    "finished_at": "2026-10-06T02:13:51.961476Z",
+    "environment_setup": {
+        "started_at": "2026-10-06T02:13:45.787057Z",
+        "finished_at": "2026-10-06T02:13:47.687577Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-10-06T02:13:47.687670Z",
+        "finished_at": "2026-10-06T02:13:47.687732Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-10-06T02:13:47.687835Z",
+        "finished_at": "2026-10-06T02:13:47.687965Z"
+    },
+    "verifier": {
+        "started_at": "2026-10-06T02:13:48.995743Z",
+        "finished_at": "2026-10-06T02:13:51.961456Z"
+    },
+    "step_results": null
+}

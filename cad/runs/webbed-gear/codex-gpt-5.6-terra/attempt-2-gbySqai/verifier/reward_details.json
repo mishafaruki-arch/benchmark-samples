@@ -1,0 +1,8 @@
+{
+  "score": 0.0,
+  "geometry_similarity": 0.0,
+  "cad_spec_consistency": 1.0,
+  "combined": 0.0,
+  "geometry_similarity_reason": "document builds its solid from non-PartDesign / baked geometry (for example a Part-workbench shape or scripted feature holder), not an editable PartDesign feature tree in candidate model 'answer.FCStd'",
+  "cad_spec_consistency_reason": "spec.json vs answer.FCStd: spec_score=1.000 (11/11 consistent, 0 inconsistent, 0 not_found; failure_budget=disabled)"
+}
